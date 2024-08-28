@@ -20,8 +20,14 @@ jobs:
       - name: cargo package
         run: cargo package
 
+      - name: cd target/package
+        run: cd target/package
+
+      - name: Delete crate file
+        run: rm *.crate
+
       - name: Rename directory to output
-        run: cd target/package && mv frank_jwt* ./output
+        run: mv frank_jwt* ./output
 
       - name: tree
         run: tree
