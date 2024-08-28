@@ -11,13 +11,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18' # Specify the version of Node.js
-
       - name: cargo test
         run: cargo test
+
+      - name: apt install tree
+        run: apt install tree
 
       - name: cargo package
         run: cargo package
@@ -30,6 +28,9 @@ jobs:
             echo "Error: More than one .crate file found or none found." >&2
             exit 1
           fi
+
+      - name: tree
+        run: tree
 
 
       - uses: "marvinpinto/action-automatic-releases@latest"
