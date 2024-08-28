@@ -20,11 +20,11 @@ jobs:
       - name: cargo package
         run: cargo package
 
+      - name: Rename output file
+        run: cd target/package && mv frank_jwt* output
+
       - name: tree
         run: tree
-
-      - name: Rename output file
-        run: cd target/package && mv *.crate output.crate
 
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
@@ -33,4 +33,4 @@ jobs:
           prerelease: true
           title: Release ${{ github.ref_name }}
           files: |
-            ./target/package/output.crate
+            ./target/package/output
