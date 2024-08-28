@@ -1,0 +1,41 @@
+name: Build and release crate package
+
+on:
+  workflow_dispatch: # Allows the workflow to be triggered manually
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18' # Specify the version of Node.js
+
+      - name: cargo test
+        run: cargo test
+
+      - name: cargo package
+        run: cargo package
+
+      - name: Rename output file
+        run: | 
+          if [ $(find /target/package -type f -name '*.crate' | wc -l) -eq 1 ]; then && 
+            find /target/package -type f -name '*.crate' -exec mv {} /target/package/output.crate \;
+          else
+            echo "Error: More than one .crate file found or none found." >&2
+            exit 1
+          fi
+
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: true
+          title: Release ${{ github.ref_name }}
+          files: |
+            ./target/package/output.crate
