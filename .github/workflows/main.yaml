@@ -20,6 +20,9 @@ jobs:
       - name: cargo package
         run: cargo package
 
+      - name: tree
+        run: tree
+
       - name: Rename output file
         run: | 
           if [ $(find /target/package -type f -name '*.crate' | wc -l) -eq 1 ]; then
@@ -28,10 +31,6 @@ jobs:
             echo "Error: More than one .crate file found or none found." >&2
             exit 1
           fi
-
-      - name: tree
-        run: tree
-
 
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
