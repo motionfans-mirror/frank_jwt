@@ -20,8 +20,8 @@ jobs:
       - name: cargo package
         run: cargo package
 
-      - name: Rename output file
-        run: cd target/package && mv frank_jwt* output
+      - name: Rename directory to output
+        run: cd target/package && mv frank_jwt* ./output
 
       - name: tree
         run: tree
