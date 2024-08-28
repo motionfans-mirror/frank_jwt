@@ -24,7 +24,7 @@ jobs:
         run: cd target/package
 
       - name: Delete crate file
-        run: rm *.crate
+        run: find /target/package -type f -name '*.crate' -delete
 
       - name: Rename directory to output
         run: mv frank_jwt* ./output
