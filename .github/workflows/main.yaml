@@ -14,8 +14,8 @@ jobs:
       - name: cargo test
         run: cargo test
 
-      - name: apt install tree
-        run: apt install tree
+      - name: sudo apt install tree
+        run: sudo apt install tree
 
       - name: cargo package
         run: cargo package
