@@ -24,13 +24,7 @@ jobs:
         run: tree
 
       - name: Rename output file
-        run: | 
-          if [ $(find /target/package -type f -name '*.crate' | wc -l) -eq 1 ]; then
-            find /target/package -type f -name '*.crate' -exec mv {} /target/package/output.crate \;
-          else
-            echo "Error: More than one .crate file found or none found." >&2
-            exit 1
-          fi
+        run: mv *.crate output.crate
 
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
